@@ -1,0 +1,125 @@
+#+TITLE: answer's Emacs Configuration
+#+AUTHOR: Darien Reese
+
+* Packages
+#+BEGIN_SRC emacs-lisp
+  ;; <leaf-install-code>
+  (eval-and-compile
+    (customize-set-variable
+     'package-archives '(("org" . "https://orgmode.org/elpa/")
+			 ("melpa" . "https://melpa.org/packages/")
+			 ("gnu" . "https://elpa.gnu.org/packages/")))
+    (package-initialize)
+    (unless (package-installed-p 'leaf)
+      (package-refresh-contents)
+      (package-install 'leaf))
+
+    (leaf leaf-keywords
+      :ensure t
+      :init
+      ;; optional packages if you want to use :hydra, :el-get, :blackout,,,
+      (leaf hydra :ensure t)
+      (leaf el-get :ensure t)
+      (leaf blackout :ensure t)
+
+      :config
+      ;; initialize leaf-keywords.el
+      (leaf-keywords-init)))
+  ;; </leaf-install-code>
+#+END_SRC
+
+* Appearance
+** Remove Unnecessary UI Elements
+#+BEGIN_SRC emacs-lisp
+  (leaf cus-start
+    :custom ((menu-bar-mode . nil)
+	     (tool-bar-mode . nil)
+	     (scroll-bar-mode . nil)))
+#+END_SRC
+
+** Font
+#+BEGIN_SRC emacs-lisp
+  (set-frame-font "Terminus 12" nil t)
+#+END_SRC
+
+#+RESULTS:
+
+** Theme
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'modus-vivendi t)
+#+END_SRC
+
+* Programming
+** Analysis
+*** Flymake
+#+BEGIN_SRC emacs-lisp
+  (leaf flymake
+    :disabled t
+    :hook (emacs-lisp-mode-hook lisp-interaction-mode-hook c-mode-hook))
+#+END_SRC
+
+*** Flycheck
+#+BEGIN_SRC emacs-lisp
+  (leaf flycheck
+    :doc "On-the-fly syntax checking"
+    :emacs>= 24.3
+    :ensure t
+    :bind (("M-n" . flycheck-next-error)
+	   ("M-p" . flycheck-previous-error))
+    :custom ((flycheck-emacs-lisp-initialize-packages . t)
+	     (flycheck-disabled-checkers . '(emacs-lisp-checkdoc)))
+    :hook (emacs-lisp-mode-hook lisp-interaction-mode-hook c-mode-hook))
+#+END_SRC
+
+** Auto-Completion
+#+BEGIN_SRC emacs-lisp
+  (leaf corfu
+    :ensure t
+    :hook (lisp-interaction-mode-hook emacs-lisp-mode-hook)
+    :config
+    (setq corfu-auto t
+	  corfu-quit-no-match 'seperator)
+    (leaf emacs
+      :init
+      ;; TAB cycle if there are only few candidates
+      (setq completion-cycle-threshold 3)
+
+      ;; Enable indentation+completion using the TAB key.
+      ;; `completion-at-point' is often bound to M-TAB.
+      (setq tab-always-indent 'complete)
+
+      ;; Emacs 30 and newer: Disable Ispell completion function. As an alternative,
+      ;; try `cape-dict'.
+      (setq text-mode-ispell-word-completion nil)
+
+      ;; Emacs 28 and newer: Hide commands in M-x which do not apply to the current
+      ;; mode.  Corfu commands are hidden, since they are not used via M-x. This
+      ;; setting is useful beyond Corfu.
+      (setq read-extended-command-predicate #'command-completion-default-include-p))
+    (leaf kind-icon
+      :ensure t
+      :config
+      (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)))
+#+END_SRC
+
+** Line Numbers
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+#+END_SRC
+
+** Magit
+#+BEGIN_SRC emacs-lisp
+  (leaf magit
+    :ensure t
+    :bind
+    ("C-x g" . magit-status))
+#+END_SRC
+
+** Languages
+*** Nim
+#+BEGIN_SRC emacs-lisp
+  (leaf nim-mode
+    :ensure t)
+#+END_SRC
+
+*** Go
