@@ -59,6 +59,11 @@
 * Programming
 ** Eldoc Floating Window
 #+BEGIN_SRC emacs-lisp
+  (leaf eldoc-box
+	 :ensure t
+	 :config
+	 (add-hook 'prog-mode 'eldoc-box-hover-mode)
+	 (add-hook 'nim-mode-hook 'eldoc-box-hover-mode))
 #+END_SRC
 
 ** Auto-Completion

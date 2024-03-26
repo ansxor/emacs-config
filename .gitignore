@@ -8,3 +8,4 @@ auto-save-list
 .cache
 tree-sitter
 .lsp-session*
+transient
