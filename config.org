@@ -102,7 +102,7 @@
 #+BEGIN_SRC emacs-lisp
   (leaf lsp-mode
 	 :ensure t
-	 :hook (go-mode nim-mode)
+	 :hook (go-mode nim-mode typescript-ts-mode)
 	 :commands (lsp lsp-deferred)
 	 :init
 	 (setq lsp-enable-symbol-highlighting nil
@@ -163,4 +163,46 @@
     :ensure t
     :bind
     ("C-x g" . magit-status))
+#+END_SRC
+
+** Projectile
+#+BEGIN_SRC emacs-lisp
+  (leaf projectile
+	 :ensure t
+	 :bind-keymap ("C-c p" . projectile-command-map)
+	 :config
+	 (projectile-mode +1))
+#+END_SRC
+
+** Git Gutter
+Displays symbols in the fringe to indicate what has changed
+#+BEGIN_SRC emacs-lisp
+  (leaf git-gutter
+	 :ensure t
+	 :hook (prog-mode-hook)
+	 :config
+	 (setq git-gutter:update-interval 0.02)
+	 (leaf git-gutter-fringe
+		:ensure t
+		:config
+		(define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+		(define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+		(define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom)))
+#+END_SRC
+
+** Languages
+*** Typescript
+#+BEGIN_SRC emacs-lisp
+  (leaf typescript-ts-mode
+	 :mode "\\.ts\\'")
+#+END_SRC
+
+** Snippets
+#+BEGIN_SRC emacs-lisp
+  (leaf yasnippet
+	 :ensure t
+	 :hook ((typescript-ts-mode-hook) . yas-minor-mode)
+	 :config
+	 (leaf yasnippet-snippets
+		:ensure t))
 #+END_SRC
