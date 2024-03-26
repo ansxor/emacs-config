@@ -57,11 +57,24 @@
 #+END_SRC
 
 * Programming
+** Eldoc Floating Window
+#+BEGIN_SRC emacs-lisp
+#+END_SRC
+
+** Auto-Completion
+#+BEGIN_SRC emacs-lisp
+  (leaf company
+	 :ensure t
+	 :hook (prog-mode-hook))
+#+END_SRC
+
 ** Languages
 *** Nim
 #+BEGIN_SRC emacs-lisp
   (leaf nim-mode
-    :ensure t)
+	 :ensure t
+	 :config
+	 (add-hook 'nim-mode-hook 'nimsuggest-mode))
 #+END_SRC
 
 *** Go
@@ -117,40 +130,6 @@
 		c-mode-hook
 		go-mode-hook
 		nim-mode-hook))
-#+END_SRC
-
-** Auto-Completion
-TODO: Need to switch from Corfu to Company mode as Corfu locks up in unexpected cases,
-preventing me from being able to move up and down lines in the text editor.
-
-#+BEGIN_SRC emacs-lisp
-  (leaf corfu
-	 :ensure t
-	 :hook (prog-mode-hook nim-mode-hook)
-	 :config
-	 (setq corfu-auto t
-	  corfu-quit-no-match 'seperator)
-	 (leaf emacs
-		:init
-		;; TAB cycle if there are only few candidates
-		(setq completion-cycle-threshold 3)
-
-		;; Enable indentation+completion using the TAB key.
-		;; `completion-at-point' is often bound to M-TAB.
-		(setq tab-always-indent 'complete)
-
-		;; Emacs 30 and newer: Disable Ispell completion function. As an alternative,
-		;; try `cape-dict'.
-		(setq text-mode-ispell-word-completion nil)
-
-		;; Emacs 28 and newer: Hide commands in M-x which do not apply to the current
-		;; mode.  Corfu commands are hidden, since they are not used via M-x. This
-		;; setting is useful beyond Corfu.
-		(setq read-extended-command-predicate #'command-completion-default-include-p))
-	 (leaf kind-icon
-		:ensure t
-		:config
-		(add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)))
 #+END_SRC
 
 ** TreeSitter
