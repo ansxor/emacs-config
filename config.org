@@ -35,6 +35,21 @@
   ;; 		'((js2-mode js-ts-mode)))
 #+END_SRC
 
+** Discord Integration
+#+BEGIN_SRC emacs-lisp
+  (leaf elcord
+	 :ensure t
+	 :config
+	 (elcord-mode))
+#+END_SRC
+
+** Expand Region
+#+BEGIN_SRC emacs-lisp
+  (leaf expand-region
+	 :ensure t
+	 :bind ("C-=" . er/expand-region))
+#+END_SRC
+
 * Appearance
 ** Remove Unnecessary UI Elements
 #+BEGIN_SRC emacs-lisp
@@ -53,7 +68,7 @@
 
 ** Theme
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'modus-vivendi t)
+  (load-theme 'modus-operandi t)
 #+END_SRC
 
 * Programming
@@ -73,15 +88,25 @@
 	 :hook (prog-mode-hook))
 #+END_SRC
 
-** Languages
-*** Nim
+** Rainbow Delimiters
 #+BEGIN_SRC emacs-lisp
-  (leaf nim-mode
+  (leaf rainbow-delimiters
 	 :ensure t
-	 :config
-	 (add-hook 'nim-mode-hook 'nimsuggest-mode))
+	 :hook (prog-mode-hook))
 #+END_SRC
 
+** Highlight Indent Guides
+#+BEGIN_SRC emacs-lisp
+  (leaf highlight-indent-guides
+	 :ensure t
+	 :custom ((highlight-indent-guides-method . bitmap))
+	 :hook (prog-mode-hook))
+#+END_SRC
+
+#+RESULTS:
+: highlight-indent-guides
+
+** Languages
 *** Go
 #+BEGIN_SRC emacs-lisp
   (leaf go-mode
@@ -98,19 +123,25 @@
 	 :ensure t)
 #+END_SRC
 
+** Electric Pairs
+#+BEGIN_SRC emacs-lisp
+  (setq electric-pair-pairs '((?\{ . ?\})
+										(?\( . ?\))
+										(?\[ . ?\])
+										(?\" . ?\")))
+  (electric-pair-mode t)
+#+END_SRC
+
 ** LSP
 #+BEGIN_SRC emacs-lisp
   (leaf lsp-mode
 	 :ensure t
-	 :hook (go-mode nim-mode typescript-ts-mode)
+	 :hook (go-mode-hook nim-mode-hook typescript-ts-mode-hook)
 	 :commands (lsp lsp-deferred)
 	 :init
 	 (setq lsp-enable-symbol-highlighting nil
 			 lsp-headerline-breadcrumb-enable nil))
 #+END_SRC
-
-#+RESULTS:
-: lsp-mode
 
 ** Analysis
 *** Flymake
@@ -174,6 +205,9 @@
 	 (projectile-mode +1))
 #+END_SRC
 
+#+RESULTS:
+: projectile
+
 ** Git Gutter
 Displays symbols in the fringe to indicate what has changed
 #+BEGIN_SRC emacs-lisp
@@ -196,6 +230,14 @@ Displays symbols in the fringe to indicate what has changed
   (leaf typescript-ts-mode
 	 :mode "\\.ts\\'")
 #+END_SRC
+*** Nim
+#+BEGIN_SRC emacs-lisp
+  (leaf nim-mode
+	 :ensure t)
+#+END_SRC
+
+#+RESULTS:
+: nim-mode
 
 ** Snippets
 #+BEGIN_SRC emacs-lisp
