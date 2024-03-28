@@ -64,8 +64,6 @@
   (set-frame-font "Terminus 12" nil t)
 #+END_SRC
 
-#+RESULTS:
-
 ** Theme
 #+BEGIN_SRC emacs-lisp
   (load-theme 'wombat t)
@@ -99,12 +97,9 @@
 #+BEGIN_SRC emacs-lisp
   (leaf highlight-indent-guides
 	 :ensure t
-	 :custom ((highlight-indent-guides-method . bitmap))
+	 :custom ((highlight-indent-guides-method . 'bitmap))
 	 :hook (prog-mode-hook))
 #+END_SRC
-
-#+RESULTS:
-: highlight-indent-guides
 
 ** Languages
 *** Go
@@ -200,13 +195,10 @@
 #+BEGIN_SRC emacs-lisp
   (leaf projectile
 	 :ensure t
-	 :bind-keymap ("C-c p" . projectile-command-map)
-	 :config
-	 (projectile-mode +1))
+	 :leaf-defer nil
+	 :bind ("C-c p" . projectile-command-map)
+	 :custom ((projectile-mode . t)))
 #+END_SRC
-
-#+RESULTS:
-: projectile
 
 ** Git Gutter
 Displays symbols in the fringe to indicate what has changed
@@ -235,9 +227,6 @@ Displays symbols in the fringe to indicate what has changed
   (leaf nim-mode
 	 :ensure t)
 #+END_SRC
-
-#+RESULTS:
-: nim-mode
 
 ** Snippets
 #+BEGIN_SRC emacs-lisp
