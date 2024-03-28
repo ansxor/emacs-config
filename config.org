@@ -68,7 +68,7 @@
 
 ** Theme
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'modus-operandi t)
+  (load-theme 'wombat t)
 #+END_SRC
 
 * Programming
