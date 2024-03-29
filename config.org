@@ -50,6 +50,18 @@
 	 :bind ("C-=" . er/expand-region))
 #+END_SRC
 
+** asdf integration
+#+BEGIN_SRC emacs-lisp
+  (leaf asdf
+	 :disable t
+	 :ensure t
+	 :vc (:url "https://github.com/tabfugnic/asdf.el")
+	 :custom ((asdf-binary . answer-config/asdf-binary-location)))
+#+END_SRC
+
+#+RESULTS:
+: asdf
+
 * Appearance
 ** Remove Unnecessary UI Elements
 #+BEGIN_SRC emacs-lisp
@@ -160,7 +172,8 @@
 		lisp-interaction-mode-hook
 		c-mode-hook
 		go-mode-hook
-		nim-mode-hook))
+		nim-mode-hook
+		ruby-ts-mode-hook))
 #+END_SRC
 
 ** TreeSitter
@@ -170,7 +183,8 @@
 			 (go "https://github.com/tree-sitter/tree-sitter-go")
 			 (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
 			 (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-			 (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")))
+			 (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+			 (ruby "https://github.com/tree-sitter/tree-sitter-ruby" "master" "src")))
 #+END_SRC
 
 ** Indentation
@@ -222,10 +236,28 @@ Displays symbols in the fringe to indicate what has changed
   (leaf typescript-ts-mode
 	 :mode "\\.ts\\'")
 #+END_SRC
+
 *** Nim
 #+BEGIN_SRC emacs-lisp
   (leaf nim-mode
 	 :ensure t)
+#+END_SRC
+
+*** Ruby
+#+BEGIN_SRC emacs-lisp
+  (leaf ruby-ts-mode
+	 :mode "\\.rb\\'"
+	 :config
+	 ;; This is used for auto-completion and jumping into modules
+	 (leaf robe
+		:ensure t
+		:hook (ruby-mode-hook ruby-ts-mode-hook)
+		:config
+		(push 'company-robe company-backends))
+	 ;; This is used for linting Ruby programs
+	 (leaf rubocop
+		:ensure t
+		:hook (ruby-mode-hook ruby-ts-mode-hook)))
 #+END_SRC
 
 ** Snippets
