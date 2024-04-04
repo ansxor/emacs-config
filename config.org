@@ -291,9 +291,6 @@ Displays symbols in the fringe to indicate what has changed
 	 (bind-key (kbd "C-'") 'copilot-posframe-flow 'copilot-mode-map))
 #+END_SRC
 
-#+RESULTS:
-: copilot
-
 ** Languages
 *** Typescript
 #+BEGIN_SRC emacs-lisp
