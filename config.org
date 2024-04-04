@@ -68,6 +68,12 @@
 	 :custom ((asdf-binary . answer-config/asdf-binary-location)))
 #+END_SRC
 
+** IEdit
+#+BEGIN_SRC emacs-lisp
+  (leaf iedit
+	 :ensure t)
+#+END_SRC
+
 * Appearance
 ** Remove Unnecessary UI Elements
 #+BEGIN_SRC emacs-lisp
@@ -101,9 +107,6 @@
 		:config
 		(helm-projectile-on)))
 #+END_SRC
-
-#+RESULTS:
-: helm
 
 * Programming
 ** Eldoc Floating Window
