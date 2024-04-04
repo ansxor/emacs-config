@@ -31,7 +31,7 @@
 * Miscellaneous
 ** Remap Major Modes
 #+BEGIN_SRC emacs-lisp
-  ;; (setq major-mode-remap-alist
+  ;; (setq major-mode-'remap-alist
   ;; 		'((js2-mode js-ts-mode)))
 #+END_SRC
 
@@ -41,6 +41,16 @@
 	 :ensure t
 	 :config
 	 (elcord-mode))
+#+END_SRC
+
+** EVIL
+#+BEGIN_SRC emacs-lisp
+  (leaf evil
+	 :disabled t
+	 :ensure t
+	 :custom ((evil-undo-system . 'undo-redo))
+	 :config
+	 (evil-mode 1))
 #+END_SRC
 
 ** Expand Region
@@ -57,9 +67,6 @@
 	 :vc (:url "https://github.com/tabfugnic/asdf.el")
 	 :custom ((asdf-binary . answer-config/asdf-binary-location)))
 #+END_SRC
-
-#+RESULTS:
-: asdf
 
 * Appearance
 ** Remove Unnecessary UI Elements
@@ -86,7 +93,8 @@
 	 :ensure t
 	 :bind (("M-x" . helm-M-x)
 			  ("C-x C-f" . helm-find-files)
-			  ("C-x b" . helm-mini))
+			  ("C-x b" . helm-mini)
+			  ("M-s o" . helm-occur))
 	 :config
 	 (leaf helm-projectile
 		:ensure t
