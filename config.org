@@ -28,6 +28,11 @@
   ;; </leaf-install-code>
 #+END_SRC
 
+** Add Local Load Path
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "code")))
+#+END_SRC
+
 * Miscellaneous
 ** Remap Major Modes
 #+BEGIN_SRC emacs-lisp
@@ -107,6 +112,15 @@
 		:config
 		(helm-projectile-on)))
 #+END_SRC
+
+** Posframe
+#+BEGIN_SRC emacs-lisp
+  (leaf posframe
+	 :ensure t)
+#+END_SRC
+
+#+RESULTS:
+: posframe
 
 * Programming
 ** Eldoc Floating Window
@@ -219,6 +233,10 @@
 	 (global-treesit-auto-mode))
 #+END_SRC
 
+** Hyperbole
+#+BEGIN_SRC emacs-lisp
+#+END_SRC
+
 ** Indentation
 #+BEGIN_SRC emacs-lisp
   (setq-default tab-width 3)
@@ -261,6 +279,20 @@ Displays symbols in the fringe to indicate what has changed
 		(define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
 		(define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom)))
 #+END_SRC
+
+** Copilot
+#+BEGIN_SRC emacs-lisp
+  (leaf copilot
+	 :vc (:url "https://github.com/copilot-emacs/copilot.el")
+	 :custom ((copilot-idle-delay . nil))
+	 :config
+	 (require 'copilot-posframe)
+	 (add-hook 'copilot-mode-hook 'copilot-posframe-mode)
+	 (bind-key (kbd "C-'") 'copilot-posframe-flow 'copilot-mode-map))
+#+END_SRC
+
+#+RESULTS:
+: copilot
 
 ** Languages
 *** Typescript

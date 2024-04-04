@@ -19,7 +19,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-vc-selected-packages '((asdf :url "https://github.com/tabfugnic/asdf.el"))))
+ '(package-vc-selected-packages
+	'((copilot :url "https://github.com/copilot-emacs/copilot.el")
+	  (asdf :url "https://github.com/tabfugnic/asdf.el"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
