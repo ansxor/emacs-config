@@ -1,4 +1,4 @@
-#+TITLE: answer's Emacs Configuration
+g#+TITLE: answer's Emacs Configuration
 #+AUTHOR: Darien Reese
 
 * Packages
@@ -53,7 +53,6 @@
 ** asdf integration
 #+BEGIN_SRC emacs-lisp
   (leaf asdf
-	 :disable t
 	 :ensure t
 	 :vc (:url "https://github.com/tabfugnic/asdf.el")
 	 :custom ((asdf-binary . answer-config/asdf-binary-location)))
@@ -73,13 +72,30 @@
 
 ** Font
 #+BEGIN_SRC emacs-lisp
-  (set-frame-font "Terminus 12" nil t)
+  (set-frame-font "DejaVu Sans Mono 11" nil t)
 #+END_SRC
 
 ** Theme
 #+BEGIN_SRC emacs-lisp
   (load-theme 'wombat t)
 #+END_SRC
+
+** Helm
+#+BEGIN_SRC emacs-lisp
+  (leaf helm
+	 :ensure t
+	 :bind (("M-x" . helm-M-x)
+			  ("C-x C-f" . helm-find-files)
+			  ("C-x b" . helm-mini))
+	 :config
+	 (leaf helm-projectile
+		:ensure t
+		:config
+		(helm-projectile-on)))
+#+END_SRC
+
+#+RESULTS:
+: helm
 
 * Programming
 ** Eldoc Floating Window
@@ -257,14 +273,25 @@ Displays symbols in the fringe to indicate what has changed
 	 ;; This is used for linting Ruby programs
 	 (leaf rubocop
 		:ensure t
-		:hook (ruby-mode-hook ruby-ts-mode-hook)))
+		:hook (ruby-mode-hook ruby-ts-mode-hook))
+	 ;; Minitest interface
+	 (leaf minitest
+		:ensure t
+		:hook (ruby-mode-hook ruby-ts-mode-hook))
+	 ;; Ruby inferior mode
+	 (leaf inf-ruby
+		:ensure t
+		:hook ((ruby-mode-hook ruby-ts-mode-hook). inf-ruby-minor-mode)))
 #+END_SRC
+
+#+RESULTS:
+: ruby-ts-mode
 
 ** Snippets
 #+BEGIN_SRC emacs-lisp
   (leaf yasnippet
 	 :ensure t
-	 :hook ((typescript-ts-mode-hook) . yas-minor-mode)
+	 :hook ((typescript-ts-mode-hook ruby-ts-mode-hook) . yas-minor-mode)
 	 :config
 	 (leaf yasnippet-snippets
 		:ensure t))
