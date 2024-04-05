@@ -159,6 +159,7 @@
 *** HTML
 #+BEGIN_SRC emacs-lisp
   (leaf web-mode
+	 :disabled t
 	 :ensure t
 	 :mode "\\.p?html?\\'")
 #+END_SRC
