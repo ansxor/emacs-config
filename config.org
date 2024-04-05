@@ -102,9 +102,6 @@
   ;; (load-theme 'wombat t)
 #+END_SRC
 
-#+RESULTS:
-: moe-theme
-
 ** Helm
 #+BEGIN_SRC emacs-lisp
   (leaf helm
@@ -125,9 +122,6 @@
   (leaf posframe
 	 :ensure t)
 #+END_SRC
-
-#+RESULTS:
-: posframe
 
 * Programming
 ** Eldoc Floating Window
@@ -162,7 +156,12 @@
 #+END_SRC
 
 ** Languages
-
+*** HTML
+#+BEGIN_SRC emacs-lisp
+  (leaf web-mode
+	 :ensure t
+	 :mode "\\.p?html?\\'")
+#+END_SRC
 
 *** Go
 #+BEGIN_SRC emacs-lisp
@@ -337,9 +336,6 @@ Displays symbols in the fringe to indicate what has changed
 		:ensure t
 		:hook ((ruby-mode-hook ruby-ts-mode-hook). inf-ruby-minor-mode)))
 #+END_SRC
-
-#+RESULTS:
-: ruby-ts-mode
 
 ** Snippets
 #+BEGIN_SRC emacs-lisp
