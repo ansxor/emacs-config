@@ -19,6 +19,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+	'("12953be69a341359b933c552cc2c0127410c755349096018868d5c109283bfd8" default))
  '(package-vc-selected-packages
 	'((copilot :url "https://github.com/copilot-emacs/copilot.el")
 	  (asdf :url "https://github.com/tabfugnic/asdf.el"))))

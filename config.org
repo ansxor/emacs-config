@@ -95,8 +95,15 @@
 
 ** Theme
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'wombat t)
+  (leaf moe-theme
+	 :ensure t
+	 :config
+	 (load-theme 'moe-dark t))
+  ;; (load-theme 'wombat t)
 #+END_SRC
+
+#+RESULTS:
+: moe-theme
 
 ** Helm
 #+BEGIN_SRC emacs-lisp
@@ -155,6 +162,8 @@
 #+END_SRC
 
 ** Languages
+
+
 *** Go
 #+BEGIN_SRC emacs-lisp
   (leaf go-mode
@@ -227,10 +236,10 @@
 			 (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
 			 (ruby "https://github.com/tree-sitter/tree-sitter-ruby" "master" "src")))
 
-  (leaf treesit-auto
-	 :ensure t
-	 :config
-	 (global-treesit-auto-mode))
+  ;; (leaf treesit-auto
+  ;;   :ensure t
+  ;;   :config
+  ;;   (global-treesit-auto-mode))
 #+END_SRC
 
 ** Hyperbole
